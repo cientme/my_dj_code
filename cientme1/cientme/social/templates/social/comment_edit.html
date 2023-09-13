@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style type="text/css">
+    .btn{
+        width: 23.8vw;
+        
+    }
+    .heading{
+        margin-left: 2.5rem;
+    }
+.d-grad{
+    margin-left: 2.5rem;
+}
+.btn-dark{
+    margin-left: 2.2rem;
+}
+</style>
+<div class="container">
+    {% if user.is_authenticated %}
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 border-bottom">
+            <h1 class="heading">Edit Comment</h1>
+        </div>
+    </div>
+        
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 border-bottom">
+            <form action="{% url 'post-detail' comment.pk %}" method="POST">
+                {% csrf_token %}
+                {{ form  }}
+                <div class="d-grad gap-2 mt-2">
+                    <button class=" btn btn-success">Submit!</button>
+                </div>
+            </form>
+        </div>
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-5 col-sm-12 border-bottom">
+                <a href="{% url 'post-detail' comment.pk %}" class=" btn btn-dark text-light"> Back to Post Detail
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <h1>Please Loging or singup</h1>
+    {% endif %}
+</div>
+{% endblock content %}

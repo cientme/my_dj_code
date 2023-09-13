@@ -1,0 +1,112 @@
+body{
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    background-color: rgb(246, 245, 241);
+    /* background-color: black; */
+}
+
+.container{
+    /* max-width: 60%; */
+    height: auto;
+}
+
+.card-signin{
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    max-height: 600px;
+    padding: 15px;
+    margin: 6rem;
+    background-color: white;
+    border-radius: 1rem;
+    
+}
+
+
+
+.form-control{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 1.2rem;
+    width: 90%;
+    height: auto;
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+
+}
+
+.btn-danger{
+    width: 96%;
+	height: 40%;
+    margin-top: 20%;
+    margin-left: 2.5%;
+    border-radius: 0.3rem;
+}
+
+.success{
+    color: red;
+    font-weight: bolder;
+
+   
+}
+
+.login{
+    margin-top: 40px;
+    text-align: center;
+    
+}
+
+.text-center{
+    margin-top: 2rem;
+    
+
+}
+
+.card{
+    border-radius: 2px solid black;
+    border-radius: 1rem;
+}
+
+
+
+#id_comment{
+    max-width: 106%;
+    display: inline-block;
+    margin-top: 5%;
+    margin-left: -2.5%;
+    width: 105%;
+    height: auto;
+    border: none;
+    border-top: 1px solid #aaa;
+    background-color: transparent;
+    /* margin-bottom: 10%; */
+    resize: none;
+    outline: none;
+}
+
+.comment-button{
+    display: inline-block;
+    /* margin-bottom: 30%; */
+    /* margin-top: -5%; */
+    background-color: transparent;
+    color: rgb(237, 84, 84);
+    margin-left: 2%;
+    border: none;
+    outline: none;
+    border-radius: 25px;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer
+    
+    
+}
+
+/* .smile-icon{
+    font-size: xx-large;
+
+} */
+
+
+

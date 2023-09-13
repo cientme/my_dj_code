@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% block title %}Post Detail of {{user}}{% endblock title %}
+{% load static %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'accounts/css/acc.css' %}">
+<link rel="stylesheet" href="{% static 'social/css/style.css' %}">
+
+{% endblock css %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container">
+
+    <!-- Post Heading start here -->
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-6 mt-5">
+            <h3>Post Detail</h3>
+            <a href="{% url 'post-list' %}" class="post-link">Back To Feed</a>
+        </div>
+    </div>
+    <!-- Post Heading end here -->
+
+
+
+    <!--Row Which Card Content start here-->
+    <div class="row justify-content-center  mt-1">
+        <div class="col-md-5 col-sm-12 mt-2 postition-relative">
+
+            <!--Card of post start here-->
+            <div class="card  mb-3">
+                <div class="post-link my-3">
+                    {% if request.user == post.author %}
+                    <a class="edit-color" href="{% url 'post-edit' post.pk %}">
+                        <i class="fa-solid fa-pen-to-square"></i></a>
+                    <a class="edit-color" href="{% url 'post-delete' post.pk %}"><i
+                            class="fa-solid fa-trash"></i></a>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <img src="{{ post.author.profile.picture.url }}" class="rounded-circle post-img" width="50"
+                        height="50" />
+                    <p class="post-text">
+                        <a class="edit-color post-link"
+                            href="{% url 'profile' post.author.profile.pk %}"><strong>@{{post.author}}</strong></a></p>
+                </div>
+                <img class="card-img-top" src="#" alt="Card image cap">
+
+                <!-- likes and slike start here-->
+                <div class="d-flex flex-row">
+                    <form method="POST" action="{% url 'like' post.pk %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <button class="remove-default-btn" type="submit">
+                            <i class="fa-regular fa-heart"><span>{{ post.likes.all.count }}</span></i>
+                        </button>
+                    </form>
+
+                    <form method="POST" action="{% url 'slike' post.pk %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <button class="remove-default-btn" type="submit">
+                            <i class="fa-solid fa-heart"><span>{{ post.slikes.all.count }}</span></i>
+                        </button>
+                        <a class='post m-1' href="{% url 'post-detail' post.pk %}"><strong><i class="fa-regular fa-comment text-dark"></strong></i></a>
+                    </form>
+                </div>
+                <!-- likes and slike end here-->
+
+                <!--card-body of post start here -->
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">{{post.caption}}</p>
+                    <p class="card-text"><small class="text-muted">{{post.created_on}}</small></p>
+
+                    <form action="" method="POST" novalidate>
+                        {% csrf_token %}
+                        {% for fm in form %}
+                        {{fm}}{{fm.errors|striptags}} <br><br>
+                        {% endfor %}
+                        <div class="d-flex">
+                            <div class="smile-icon">
+                                <i class="fa-regular fa-face-smile"></i>
+                            </div>
+                            <input type="submit" class="comment-button" value="Post comment">
+                        </div>
+                    </form>
+                </div>
+                <!--card-body of post end here -->
+            </div>
+            <!--card of post end here -->
+
+
+
+            <!--card of comments start here -->
+            <div class="card mb-3">
+                <!--card-body of comments start here -->
+                <div class="card-body">
+                    {% for comment in comments %}
+                    {% if comment.is_parent %}
+                    <img src="{{ comment.author.profile.picture.url }}" class="rounded-circle post-img" width="50"
+                        height="50" />
+                    <p class="post-text">
+                        <a class="edit-color post-link"
+                            href="{% url 'profile' comment.author.profile.pk %}">
+                            <strong>@{{comment.author}}</strong>
+                        </a>
+                    </p>
+                    <p class="post-text">{{comment.comment}}</p>
+                    <div class="d-flex flex-row  border-bottom my-2">
+                    <p class="card-text"><small class="text-muted ">{{comment.created_on}}
+                     <!-- reply button start here. -->
+                <button class="remove-default-btn" onclick="commentReplyToggle('{{ comment.pk }}')" ><span class="text-danger">reply...</span></button>
+                <!--reply button end here.-->
+                            {% if request.user == comment.author %}
+
+                          <a class="edit-color post-link"
+                                    href="{% url 'comment-delete' post.pk comment.pk %}"><span class="text-secondary">delete...</span></a></a>
+                            {% endif %}
+                        </small> 
+                    </p>
+            <!-- likes and super like comment start here--> 
+                <form method="POST" action="{% url 'comment-like' post.pk comment.pk %}" >
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button class="remove-default-btn likes-btn" type="submit"><i class="fa-regular fa-heart">
+                    <span class="text-secondary"> {{  comment.likes.all.count }}</span></i>
+                    </button>
+                </form>
+
+                <form method="POST" action="{% url 'comment-slike' post.pk comment.pk %}" >
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button class="remove-default-btn likes-btn" type="submit"><i class="fa-solid fa-heart">
+                        <span class="text-secondary"> {{  comment.slikes.all.count }}</span></i>
+                    </button>
+                </form>
+            </div>
+            <!-- likes and super like comment end here-->         
+   
+    
+
+            <!--comment reply form start here.-->
+            <div class="d-none" id="{{ comment.pk }}">
+            <form action="{% url 'comment-reply' post.pk comment.pk %}"  method="POST" novalidate>
+                {% csrf_token %}
+                {% for fm in form %}
+                {{fm}}{{fm.errors|striptags}} <br><br>
+                {% endfor %}
+                <div class="d-flex">
+                      <input type="submit" class="comment-button" value="Reply">
+                  </div>
+              </form>
+            </div>
+             <!--comment reply form end here.-->
+             
+            <!-- Child comment code start here. -->
+            {% for child_comment in comment.children %}
+            <div class="child-comment">
+                <div class="col-md-8 col-sm-12 mx-5">
+            <img src="{{ child_comment.author.profile.picture.url }}" class="rounded-circle post-img" width="40"
+                        hieight="40" />
+                    <p class="post-text">
+                        <a class="edit-color post-link"
+                            href="{% url 'profile' child_comment.author.profile.pk %}">
+                            <strong>@{{ child_comment.author }}</strong>
+                        </a>
+                    </p>
+                    <p class="post-text">{{ child_comment.comment }} </p>
+                
+            <!-- likes and super like comment start here-->        
+                <div class="d-flex flex-row  border-bottom my-2">
+                    <small class="text-muted">{{ child_comment.created_on }}
+                        {% if request.user == child_comment.author %}
+                        <a class="edit-color post-link" href="{% url 'comment-delete' post.pk child_comment.pk %}"><span class="text-secondary">delete...</span></a>
+                                    {% endif %}
+                                </small>    
+
+                <!-- likes and super like comment-reply start here-->
+                <form method="POST" action="{% url 'comment-like' post.pk child_comment.pk %}" >
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button class="remove-default-btn likes-btn" type="submit">
+                        <i class="fa-regular fa-heart"><span> {{  child_comment.likes.all.count }}</span></i>
+                    </button>
+                </form>
+
+                <form method="POST" action="{% url 'comment-slike' post.pk child_comment.pk %}" >
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button class="remove-default-btn likes-btn" type="submit">
+                        <i class="fa-solid fa-heart"><span> {{  child_comment.slikes.all.count }}</span></i>
+                    </button>
+                </form>
+                <!-- likes and super like comment-reply end here-->
+                </div>
+            </div>
+            {% endfor %}
+            <!-- Child comment code end here. -->
+
+            {% endif %}        
+            {% endfor %}
+            
+            </div>
+                <!--card-body of comments end here -->
+            </div>
+            <!--card of comments end here -->
+     
+        </div>
+    </div>
+    <!--Row Which Card Content end here-->
+   
+</div>
+{% endblock content %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'social/js/social.js' %}">
+
+</script>
+{% endblock js %}

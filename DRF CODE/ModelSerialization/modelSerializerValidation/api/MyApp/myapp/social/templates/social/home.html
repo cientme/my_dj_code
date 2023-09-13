@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        .input{
+            color: white;
+            background-color: black;
+            font-size: smaller;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+        }
+        .box{
+            margin-top: 200px;
+        }
+        .headline{
+            color: blue;
+        }
+        .win{
+            color: green;
+        }
+        .wrong_number{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+    <center>
+        <h1 class="headline">Guess a winning number and win 100,000 </h1>
+        <h1 class="win">Winning Number was {{wn}}</h1>  
+        <h1 class="wrong_number">Try Again {{n}}</h1>
+        <h1>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input class="input" type="submit" value="Enter">
+            </form>
+        </h1>
+<center>
+</div>
+</body>
+</html>

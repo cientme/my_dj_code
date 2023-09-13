@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container">
+    {% if user.is_authenticated %}
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 border-bottom">
+            <a href="{% url 'add-post' %}">
+                <span class="material-icons text-dark">
+                    post_add 
+                    </span>
+            </a>
+        </div>
+    </div>
+    
+    {% for post in post_list %}
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 border-bottom">
+            <img class="rounded-circle" src="{{ user.profile_image.url }}" alt="Generic placeholder image" width="40" height="40">
+            <p><strong><h3>{{ post.username }}</h3></strong> {{ post.created_on }} </p>
+            <p>{{ post.body }}</p>
+            {% if request.user == post.username %}
+            <a href="{% url 'post-detail' post.pk %}" class="text-dark">
+                <span class="material-icons">
+                    description
+                    </span>
+            </a>
+            <a href="{% url 'add-comment' post.pk %}" class="text-dark mx-2">
+                <span class="material-icons">
+                    maps_ugc
+                    </span>
+            </a>
+            <a href="{% url 'post-delete' post.pk %}" class="text-dark mx-2">
+                <span class="material-icons">
+                    delete
+                    </span>
+            </a>
+            {% else %}
+            <a href="{% url 'post-detail' post.pk %}" class="text-dark">
+                <span class="material-icons">
+                    description
+                </span>
+            </a>
+            <a href="{% url 'add-comment' post.pk %}" class="text-dark mx-2">
+                <span class="material-icons">
+                    maps_ugc
+                </span>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h1>Please Loging or singup</h1>
+    {% endif %}
+</div>
+{% endblock content %}

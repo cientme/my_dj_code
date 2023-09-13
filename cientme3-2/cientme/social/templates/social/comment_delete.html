@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Delete Comment{% endblock title %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'accounts/css/acc.css' %}">
+<link rel="stylesheet" href="{% static 'social/css/style.css' %}">
+
+{% endblock css %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container">
+     <div class="row justify-content-center">
+		<div class="card card-signin">
+		  <div class="card-body">
+          <div class="form-row">
+            <img src="{{ comment.author.profile.picture.url }}" class="rounded-circle post-img" width="50" height="50" />
+                    <p class="post-text">
+                    <a class="edit-color post-link" href="{% url 'profile' comment.author.profile.pk %}"><strong>@{{comment.author}}</strong>
+                    </a>
+        <h2 class="text-center text-danger mb-5">Are You Sure?</h2>
+            <p><strong>You are about to delete this comment, this cannot be undone.</strong></p>
+            <form action="" method="POST" novalidate>
+            {% csrf_token %}
+            <div class="form-group">
+              <input class="btn btn-danger btn-lg btn-block" type="submit" value="Delete"> 
+            </div><br> <br>
+            </div>
+            </form>
+            {% comment %} <div class="div text-center">
+                <a href="{% url 'post-detail' comment.pk %}" class="post-link">Cancel</a>
+            </div> {% endcomment %}
+            {% if messages %}
+            {% for message in messages %}
+            <small {% if message.tags %} class="text-center {{message.tags}} mb-3" {% endif %} >{{message}}</small>
+            {% endfor %}
+            {% endif %} <br><br>
+            </div>
+          </div>
+        </div>
+{% endblock content %} 
+

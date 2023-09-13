@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Data</title>
+    <style>
+        th,td{
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>this is teacher data page</h1>
+    {% if teacher %}
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Teaching Experience</th>
+            <th>Bio data</th>
+        </tr>
+        <tr>
+            {% for teach in teacher %}
+            <td>{{teach.first_name}}</td>
+            <td>{{teach.last_name}}</td>
+            <td>{{teach.email}}</td>
+            <td>{{teach.teaching_exp}}</td>
+            <td>{{teach.bio_data}}</td>
+        </tr> 
+        {% endfor %} 
+    </table>
+    {% else %}
+    <h3>No data</h3>
+    {% endif %}
+</body>
+</html>

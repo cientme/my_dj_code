@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %} Followers List{% endblock title %}
+{% load static %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'accounts/css/acc.css' %}">
+<link rel="stylesheet" href="{% static 'social/css/style.css' %}">
+
+{% endblock css %}
+
+{% block content %}
+{% comment %} {% include 'navbar.html' %} {% endcomment %}
+<div class="container">
+
+    <!-- Post Heading start here -->
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-6 mt-5">
+            <h3>Post Detail</h3>
+            <a href="{% url 'profile' profile.pk %}">Back To Profile</a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 mt-5">
+            {% if profile.name %}
+            <h3>Followers for @{{ profile.name }}</h3>
+            {% else %}
+            <h3>Followers for @{{ profile.user.username }}</h3>
+            {% endif %}
+        </div>
+    </div>
+
+    {% for follower in followers %}
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-sm-12 position-relative my-3">
+            <a href="{% url 'profile' follower.profile.pk %}">
+                <img class="rounded-circle post-img" height="50" width="50" src="{{ follower.profile.picture.url }}">
+                <p class="post-text">
+                <a class="edit-color post-link" href="{% url 'profile' follower.profile.pk %}"><strong>@{{ follower.username}}</strong></a>
+            </p>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

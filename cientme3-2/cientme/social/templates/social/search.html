@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Search Port{% endblock title %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'social/css/style.css' %}">
+{% endblock css %}
+
+{% block content %}
+{% comment %} {% include 'navbar.html' %} {% endcomment %}
+<div class="container">
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 border-bottom postition-relative mb-3 mx-2">
+            <h1 class="text-danger">User List</h1>
+        </div>
+    </div>
+
+
+    
+    {% for profile in profile_list %}
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 border-bottom postition-relative mb-3 mx-2">
+            <img src="{{ profile.picture.url }}" class="rounded-circle  my-2" width="75" height="75" />
+            <p><a class="text-center edit-color post-link" href="{% url  'profile' profile.pk %}">@{{ profile.user }}</a></p>
+            <!-- following and Unfollow box start here -->
+            <!-- following and Unfollow box start here -->
+            <div class="user-info mb-3">
+                {% if user == request.user %}
+                {% else %}
+                {% if is_following %}
+                <form action="{% url 'remove-follower' profile.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-danger" type="submit">Unfollow</button>
+                </form>
+                {% else %}
+                <form action="{% url 'search-add-follower' profile.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-success" type="submit">Following</button>
+                </form>
+                {% endif %}
+                {% endif %}
+            </div>
+            <!-- following and Unfollow box start here -->
+
+            {% if profile.location %}
+            <p>{{ profile.location }}</p>
+            {% endif %}
+            <p>Follower: {{ profile.followers.all.count }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

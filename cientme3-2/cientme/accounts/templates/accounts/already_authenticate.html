@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Already Authenticated{% endblock title %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'accounts/css/already_auth.css' %}">
+<link rel="stylesheet" href="{% static 'social/css/style.css' %}">
+{% endblock css %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+    <div class="already_auth">
+        <img  class="img my-5 post-img" src="{{ request.user.profile.picture.url }}" width="200" height="200">
+    </div>
+    <h1 class="text-center username">@{{user.username}}</h1>
+        <h1 class="text-center">You Are Already Authenticated !! </h1>
+        <div class="text-center mt-5">
+            <a href="{% url 'post-list' %}" class=" btn btn-danger">Go To Home</a>
+    </div>
+</div>
+</div>
+{% endblock content %}

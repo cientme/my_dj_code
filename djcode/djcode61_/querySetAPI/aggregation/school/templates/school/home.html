@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Info</title>
+    <style>
+        table, th, tr, td {
+            border: 2px solid black;
+        }
+        h1{
+            margin-left: 6rem;
+        }
+    </style>
+</head>
+<body>
+    <table>
+    <h1>Students Information</h1>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Roll</th>
+    <th>City</th>
+    <th>Marks</th>
+    <th>Passing Date</th>
+    <th>Admission Date Time</th>
+    {% for student in students %}
+    <tr>
+        <td>{{student.id}}</td>
+        <td>{{student.name}}</td>
+        <td>{{student.roll}}</td>
+        <td>{{student.city}}</td>
+        <td>{{student.marks}}</td>
+        <td>{{student.passdate}}</td>
+        <td>{{student.admdatetime}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<h3>Average Mark {{average}}</h3>
+<h3>Average Mark {{average.marks__avg}}</h3><br> <hr>
+<h3>Totale Mark {{totale}}</h3>
+<h3>Totale Mark {{totale.marks__sum}}</h3><br> <hr>
+<h3>Minimum Mark {{minimum}}</h3>
+<h3>Minimum Mark {{minimum.marks__min}}</h3><br> <hr>
+<h3>Maximum Mark {{maximum}}</h3>
+<h3>Maximum Mark {{maximum.marks__max}}</h3><br> <hr>
+<h3>Totale Count Mark {{totalecount}}
+    <h3>Totale Count Mark {{totalecount.marks__count}}</h3><br> <hr>
+
+</body>
+</html>

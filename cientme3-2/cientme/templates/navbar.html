@@ -1,0 +1,40 @@
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+{% endblock css %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <a class="navbar-brand mx-5" href="#"><h3>cientme</h3></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    </ul>
+    <div class="row justify-content-center mt-3">
+    <form class="d-flex mx-5" method="GET" action="{% url 'profile-search' %}">
+      <div class="input-group">
+        <input type="text" class="form-control mb-2" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" name="query" value="{{ request.GET.query }}">
+        <button class="remove-default-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+    </form>
+  </div>
+  </div>
+  <div class="icons mx-5">
+  <a class="text-dark" href="{% url 'post-list' %}"><i class="fa-solid fa-house"></i></a>
+  <a class="text-dark" href="{% url 'post-add' %}"><i class="fa-solid fa-circle-plus mx-2"></i></a>
+  
+  <div class="btn-group dropleft">
+    <img class="account-image mr-5 rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{{ request.user.profile.picture.url }}" alt="cientme logo " width="40" height="40">
+    <div class="dropdown-menu" aria-labelledby="id_profile_links">
+      <a class="dropdown-item" href="{% url 'profile' request.user.profile.pk %}">Profile</a>
+      <a class="dropdown-item" href="{% url 'change-password-with-old-password' %}">Change Password</a>
+      <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+
+  {% comment %} <div class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="{% url 'profile' %}"><i class="fa-solid fa-user"></i></a> {% endcomment %}
+</div>
+</div>
+</nav>

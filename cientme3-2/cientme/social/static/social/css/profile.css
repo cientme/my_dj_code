@@ -1,0 +1,17 @@
+
+.profile-img{
+    float: left;
+    
+}
+
+.followers{
+    display: inline-block;
+}
+.user-info{
+    display: inline-block;
+}
+
+.location-dob-bio{
+    display: inline-block;
+}
+

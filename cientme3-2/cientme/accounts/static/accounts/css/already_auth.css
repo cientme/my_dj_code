@@ -1,0 +1,12 @@
+.img{
+    margin-top: 15%;
+    margin-left: 42%;
+    border-radius: 50%;
+    outline-style: groove;
+    
+}
+
+.username{
+    color: red;
+    font-weight: bolder;
+}

@@ -1,0 +1,27 @@
+{% comment %} {% extends 'base.html' %}
+{% block title %}Comment Deleted{% endblock title %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'accounts/css/acc.css' %}">
+{% endblock css %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container">
+<div class="container">
+     <div class="row justify-content-center">
+		<div class="card card-signin">
+		  <div class="card-body">
+          <div class="row form-row">
+        <h4 class="text-center mb-5">Comment Deleted Successfully</h4>
+            <div class="div text-center">
+                <a href="{% url 'post-detail' post.pk %}" class="text-dark">Cancel</a>
+            </div>
+             <br><br>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock content %} 
+ {% endcomment %}

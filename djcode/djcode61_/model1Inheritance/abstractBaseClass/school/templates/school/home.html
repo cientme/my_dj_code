@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information</title>
+    <style>
+        table, th, tr, td {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <h1>Student Information</h1>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Fees</th>
+        {% for student in students %}
+        <tr>
+            <td>{{student.id}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.age}}</td>
+            <td>{{student.fees}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <table>
+        <h1>Teacher Information</h1>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Date</th>
+        <th>Salary</th>
+        {% for teacher in teachers %}
+        <tr>
+            <td>{{teacher.id}}</td>
+            <td>{{teacher.name}}</td>
+            <td>{{teacher.age}}</td>
+            <td>{{teacher.date}}</td>
+            <td>{{teacher.salary}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <table>
+        <h1>Contractor Information</h1>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>date</th>
+        <th>Payment</th>
+        {% for contractor in contractors %}
+        <tr>
+            <td>{{contractor.id}}</td>
+            <td>{{contractor.name}}</td>
+            <td>{{contractor.age}}</td>
+            <td>{{contractor.date}}</td>
+            <td>{{contractor.payment}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

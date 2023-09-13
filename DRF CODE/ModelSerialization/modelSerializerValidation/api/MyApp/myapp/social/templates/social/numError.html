@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>win</title>
+    <style>
+        .box{
+            margin-top: 200px;
+        }
+        .g{
+            color: green;
+            font-size: xx-large;
+            margin-top: 100px;
+        }
+        .bonus{
+            color: blue;
+        }
+        .red{
+            color: red;
+            
+        }
+        .black{
+            background-color: black;
+            
+        }
+        .text{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+    <center>
+        <h1 class="red">Ooops!!! 🤭</h1>
+        <h1>Please Check the number!!</h1>
+        {% if number > 100 %}
+        <h1 class="red">Your number ({{number}}) is Greater than  100 </h4>
+        <h2 class="bonus">Please put the number from 1 to 100</h2>
+    {% else %}
+    <h1 class="red">Your number ({{number}}) is less than  1 </h4>
+        <h2 class="bonus">Please put the number from 1 to 100</h2>
+        {% endif %}
+        <h1 class="g"><strong>Play Again!!! 🤗</strong></h1>
+        <button class="black"><h3><a href="/" class="text">Back To Home</a></h3>
+        </button>
+    </center>
+</div>
+</body>
+</html>

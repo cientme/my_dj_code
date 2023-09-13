@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style type="text/css">
+    .button{
+        width: 23.8vw;
+        
+    }
+</style>
+
+<div class="container">
+    {% if user.is_authenticated %}
+    <div class="row mt-3">
+        <div class="col-md-5 col-sm-6">
+            <a href="{% url 'post-list'  %}" class="btn btn-dark">
+                Back to post 
+            </a>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12">
+            <p><strong><h3>{{ post.username }}</h3></strong> {{ post.created_on }} </p>
+            <p>{{ post.body }}</p>
+            {% if request.user == post.username %}
+            <a href="{% url 'post-edit' post.pk %}" class="text-dark mx-2">
+                <span class="material-icons">
+                    edit
+                </span>
+            </a>
+            <a href="{% url 'post-delete' post.pk %}" class="text-dark mx-2">
+                <span class="material-icons">
+                    delete
+                </span>
+            </a>
+            <a href="{% url 'add-comment' post.pk %}" class="text-dark">
+                <span class="material-icons">
+                    maps_ugc
+                </span>
+            </a>
+            {% else %}  
+             
+              <a href="{% url 'add-comment' post.pk %}" class="text-dark">
+                <span class="material-icons">
+                    maps_ugc
+                </span>
+            </a>
+                 
+            {% endif %}
+        {% for comment in comments %}
+        <div class="row justify-content-left mt-3 mb-2 border-bottom">
+            <div class="col-md-5 col-sm-12">
+                <p><strong><h5>{{ comment.username }}</h5>{{ comment.created_on }}</strong> </p>
+                {% if request.user == comment.username %}
+                <a href="{% url 'comment-edit' post.pk comment.pk %}" class="text-dark mx-2">
+                    <span class="material-icons">
+                        edit
+                    </span>
+                </a>
+                <a href="{% url 'comment-delete' post.pk comment.pk %}" class="text-dark mx-2">
+                    <span class="material-icons">
+                        delete
+                    </span>
+                </a>
+                {% endif %}
+                <p>{{ comment.comment }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+    {% else %}
+    <h1>Please Loging or singup</h1>
+    {% endif %}
+</div>
+
+{% endblock content %}

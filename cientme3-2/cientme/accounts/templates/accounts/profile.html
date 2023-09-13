@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock title %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+{% endblock css %}
+
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container mt-5">
+    <h1 class="text-center mt-5">Profile Page</h1>
+    <h3 class="text-center mt-5">{{username}}</h3>
+    <div class="text-center">
+    <a href="{% url 'change-password-with-old-password' %}" class="btn btn-danger my-5">Change Password</a> <br><br>
+    <a href="{% url 'logout' %}" class="btn btn-dark">LogOut</a>
+    </div>
+</div>
+{% endblock content %} 

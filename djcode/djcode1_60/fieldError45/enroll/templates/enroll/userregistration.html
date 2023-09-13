@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+       .errorlist{
+           list-style-type:none;
+           color: red;
+           font-size: 10px;
+           margin: 0;
+           padding: 0;           
+       }
+       
+    </style>
+</head>
+<body>   
+   <form action="" method="POST" novalidate> <!-- novalidate removes htm-5 auto fill condition-->
+       {% csrf_token %}
+       {{form.non_field_errors}}
+       {% for field in form %}
+       <div class="fields my-2">
+           {{field.label_tag}} {{field}} 
+           {% for error in field.errors %}
+           <spam class="errorlist">{{error}}</spam>
+           {% endfor %}
+       </div>
+       {% endfor %}
+    <input type="submit" value="Submit">
+   </form>
+</body>
+</html>
